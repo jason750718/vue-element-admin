@@ -1,0 +1,10 @@
+version: '3'
+services: 
+  web:
+    image: nginx
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./dist:/var/www/public
+    ports:
+      - "3001:80"
+    network_mode: "bridge"

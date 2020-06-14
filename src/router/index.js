@@ -25,7 +25,7 @@ import nestedRouter from './modules/nested'
  * meta : {
     roles: ['admin','editor']    control the page roles (you can set multiple roles)
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
+    icon: 'svg-name'             the icon show in the sidebar
     noCache: true                if set true, the page will no be cached(default is false)
     affix: true                  if set true, the tag will affix in the tags-view
     breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
@@ -130,6 +130,37 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
+    path: '/test',
+    component: Layout,
+    redirect: '/test/testroot',
+    alwaysShow: true, // will always show the root menu
+    name: 'testroot',
+    meta: {
+      title: 'testroot',
+      icon: 'excel'
+    },
+    children: [
+      {
+        path: 'test1',
+        component: () => import('@/views/test/t1'),
+        name: '測試的name',
+        meta: { title: '文字測試的title' }
+      },
+      {
+        path: 'test2',
+        component: () => import('@/views/test/t2'),
+        name: '測試的name2',
+        meta: { title: '文字測試的title2' }
+      },
+      {
+        path: 'testtable',
+        component: () => import('@/views/test/test-table'),
+        name: '測試table',
+        meta: { title: '測試table meta title' }
+      }
+    ]
+  },
+  {
     path: '/permission',
     component: Layout,
     redirect: '/permission/page',
@@ -197,20 +228,24 @@ export const asyncRoutes = [
     name: 'Example',
     meta: {
       title: 'Example',
-      icon: 'el-icon-s-help'
+      icon: 'example'
     },
     children: [
       {
         path: 'create',
         component: () => import('@/views/example/create'),
         name: 'CreateArticle',
-        meta: { title: 'Create Article', icon: 'el-icon-s-help' }
+        meta: { title: 'Create Article', icon: 'edit' }
       },
       {
         path: 'edit/:id(\\d+)',
         component: () => import('@/views/example/edit'),
         name: 'EditArticle',
-        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+        meta: {
+          title: 'Edit Article',
+          noCache: true,
+          activeMenu: '/example/list'
+        },
         hidden: true
       },
       {
@@ -387,11 +422,12 @@ export const asyncRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
-})
+const createRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
+  })
 
 const router = createRouter()
 
