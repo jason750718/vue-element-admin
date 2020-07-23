@@ -132,19 +132,19 @@ export const asyncRoutes = [
   {
     path: '/test',
     component: Layout,
-    redirect: '/test/testroot',
+    redirect: '/test/jasontest',
     alwaysShow: true, // will always show the root menu
     name: 'testroot',
     meta: {
-      title: 'testroot',
+      title: 'Jason測試',
       icon: 'excel'
     },
     children: [
       {
-        path: 'test1',
-        component: () => import('@/views/test/t1'),
-        name: '測試的name',
-        meta: { title: '文字測試的title' }
+        path: 'fullcalendar',
+        component: () => import('@/views/test/full-calendar'),
+        name: '行事曆',
+        meta: { title: '行事曆' }
       },
       {
         path: 'test2',
